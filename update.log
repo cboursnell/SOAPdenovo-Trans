@@ -1,0 +1,2 @@
+1.03 | 2013-07-19 12:00:00 +0800 (Fri, 19 Jul 2013)
+Add the function: calculate RPKM (Reads per Kilobase of assembled transcripts per Million mapped reads).
