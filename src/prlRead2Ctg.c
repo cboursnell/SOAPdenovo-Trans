@@ -77,7 +77,7 @@ static void creatThrds (pthread_t * threads, PARAMETER * paras)
 		}
 	}
 
-	printf ("%d thread created\n", thrd_num);
+	printf ("%d thread created in prlRead2Ctg\n", thrd_num);
 }
 // 2->1->3
 static void threadRoutine (void *para)

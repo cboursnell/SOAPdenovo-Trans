@@ -123,7 +123,7 @@ static void singleKmer (int t, KmerSet * kset, unsigned int seq_index, unsigned 
 	//printf("singleKmer: kmer %llx\n",kmerBuffer[t]);
 	if (!flag)
 	{
-		//node->twin=0表示kmer跟contig同向
+
 		if (smallerBuffer[t])
 		{
 			node->twin = 0;
@@ -158,7 +158,7 @@ static void creatThrds (pthread_t * threads, PARAMETER * paras)
 		}
 	}
 
-	printf ("%d thread created\n", thrd_num);
+	printf ("%d thread created in prlHashCtg\n", thrd_num);
 }
 
 static void thread_wait (pthread_t * threads)

@@ -59,6 +59,7 @@ int call_pregraph (int argc, char **argv)
 #endif
 	
 	time (&time_bef);
+
 	prlRead2HashTable (shortrdsfile, graphfile);
 	time (&time_aft);
 	printf ("time spent on pre-graph construction: %ds\n\n", (int) (time_aft - time_bef));

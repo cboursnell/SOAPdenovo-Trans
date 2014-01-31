@@ -639,35 +639,41 @@ static FILE *openFile4read (char *fname)
 {
 	FILE *fp;
 	int i, j=0;
-	char str_sub[4];
-	for (i = strlen (fname)-1; i>=0; i--)
-	{
-		if (fname[i] == ' ')  j++;
-		else break;
-	}
-	for(i = 0; i <3; i++) str_sub[i] = fname[strlen (fname) - 3 - j + i];
-	str_sub[3]='\0';
-	if (strlen (fname) > 3 && strcmp (str_sub, ".gz") == 0) 
-	{
-		char *cmd = (char *) ckalloc ((strlen (fname) + 20) * sizeof (char));
+//	char str_sub[4];
+//	for (i = strlen (fname)-1; i>=0; i--)
+//	{
+//		if (fname[i] == ' ')  j++;
+//		else break;
+//	}
+//	printf ("j = %d \n", j);
+//	for(i = 0; i <3; i++) str_sub[i] = fname[strlen (fname) - 3 - j + i];
+//	str_sub[3]='\0';
 
-		sprintf (cmd, "gzip -dc %s", fname);
-		fp = popen (cmd, "r");
+//	printf ("0 = %c\n", str_sub[0]);
+//	printf ("1 = %c\n", str_sub[1]);
+//	printf ("2 = %c\n", str_sub[2]);
+//	printf ("3 = %c\n", str_sub[3]);
+//	if (strlen (fname) > 3 && strcmp (str_sub, ".gz") == 0) // str_sub matches ".gz"
+//	{
+//		char *cmd = (char *) ckalloc ((strlen (fname) + 20) * sizeof (char));
+
+//		sprintf (cmd, "gzip -dc %s", fname);
+//		fp = popen (cmd, "r");
 		
-#if defined(SIGCHLD) 
-signal(SIGCHLD,SIG_IGN);        
-#elif defined(SIGCLD) 
-signal(SIGCLD,SIG_IGN); 
-#endif
+//#if defined(SIGCHLD)
+//signal(SIGCHLD,SIG_IGN);
+//#elif defined(SIGCLD)
+//signal(SIGCLD,SIG_IGN);
+//#endif
 
-		free (cmd);
-		return fp;
-	}
-	else
-	{
-		fname[strlen (fname) - j] = '\0';
+//		free (cmd);
+//		return fp;
+//	}
+//	else
+//	{
+		fname[strlen (fname)] = '\0';
 		return ckopen (fname, "r");
-	}
+//	}
 }
 
 static samfile_t *openFile4readb (char *fname)	//open file to read bam file
@@ -694,8 +700,8 @@ void openFileInLib (int libNo)
 
 	if (lib_array[i].curr_type == 1)
 	{
-		printf ("read from file:\n %s\n", lib_array[i].a1_fname[lib_array[i].curr_index]);
-		printf ("read from file:\n %s\n", lib_array[i].a2_fname[lib_array[i].curr_index]);
+		printf ("read from file - type 1:\n %s\n", lib_array[i].a1_fname[lib_array[i].curr_index]);
+		printf ("read from file - type 1:\n %s\n", lib_array[i].a2_fname[lib_array[i].curr_index]);
 		lib_array[i].fp1 = openFile4read (lib_array[i].a1_fname[lib_array[i].curr_index]);
 		lib_array[i].fp2 = openFile4read (lib_array[i].a2_fname[lib_array[i].curr_index]);
 		lib_array[i].curr_index++;
@@ -703,8 +709,8 @@ void openFileInLib (int libNo)
 	}
 	else if (lib_array[i].curr_type == 2)
 	{
-		printf ("read from file:\n %s\n", lib_array[i].q1_fname[lib_array[i].curr_index]);
-		printf ("read from file:\n %s\n", lib_array[i].q2_fname[lib_array[i].curr_index]);
+		printf ("read from file - type 2:\n %s\n", lib_array[i].q1_fname[lib_array[i].curr_index]);
+		printf ("read from file - type 2:\n %s\n", lib_array[i].q2_fname[lib_array[i].curr_index]);
 		lib_array[i].fp1 = openFile4read (lib_array[i].q1_fname[lib_array[i].curr_index]);
 		lib_array[i].fp2 = openFile4read (lib_array[i].q2_fname[lib_array[i].curr_index]);
 		lib_array[i].curr_index++;
@@ -712,28 +718,28 @@ void openFileInLib (int libNo)
 	}
 	else if (lib_array[i].curr_type == 3)
 	{
-		printf ("read from file:\n %s\n", lib_array[i].p_fname[lib_array[i].curr_index]);
+		printf ("read from file - type 3:\n %s\n", lib_array[i].p_fname[lib_array[i].curr_index]);
 		lib_array[i].fp1 = openFile4read (lib_array[i].p_fname[lib_array[i].curr_index]);
 		lib_array[i].curr_index++;
 		lib_array[i].paired = 0;
 	}
 	else if (lib_array[i].curr_type == 5)
 	{
-		printf ("read from file:\n %s\n", lib_array[i].s_a_fname[lib_array[i].curr_index]);
+		printf ("read from file - type 5:\n %s\n", lib_array[i].s_a_fname[lib_array[i].curr_index]);
 		lib_array[i].fp1 = openFile4read (lib_array[i].s_a_fname[lib_array[i].curr_index]);
 		lib_array[i].curr_index++;
 		lib_array[i].paired = 0;
 	}
 	else if (lib_array[i].curr_type == 6)
 	{
-		printf ("read from file:\n %s\n", lib_array[i].s_q_fname[lib_array[i].curr_index]);
+		printf ("read from file - type 6:\n %s\n", lib_array[i].s_q_fname[lib_array[i].curr_index]);
 		lib_array[i].fp1 = openFile4read (lib_array[i].s_q_fname[lib_array[i].curr_index]);
 		lib_array[i].curr_index++;
 		lib_array[i].paired = 0;
 	}
 	else if (lib_array[i].curr_type == 4)
 	{
-		printf ("read from file:\n %s\n", lib_array[i].b_fname[lib_array[i].curr_index]);
+		printf ("read from file - type 4:\n %s\n", lib_array[i].b_fname[lib_array[i].curr_index]);
 		lib_array[i].fp3 = openFile4readb (lib_array[i].b_fname[lib_array[i].curr_index]);
 		lib_array[i].curr_index++;
 		lib_array[i].paired = 0;

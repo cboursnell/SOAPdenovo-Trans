@@ -85,7 +85,7 @@ static void creatThrds (pthread_t * threads, PARAMETER * paras)
 		}
 	}
 
-	printf ("%d thread created\n", thrd_num);
+	printf ("%d thread created prlRead2path\n", thrd_num);
 }
 // 2 -> 1 -> 3 -> 4 -> 6
 static void threadRoutine (void *para)
@@ -961,7 +961,7 @@ void prlRead2edge (char *libfile, char *outfile)
 					n_solexa -= 2;
 					continue;
 				}
-				if ((++i) % 100000000 == 0)
+				if ((++i) % 1000000 == 0)
 				{
 					printf ("--- %lldth reads\n", i);
 				}
@@ -1045,7 +1045,7 @@ void prlRead2edge (char *libfile, char *outfile)
 					{
 						turn = 2;
 						readseqInLib (seqBuffer[read_c], next_name, &(lenBuffer[read_c]), readBuffer1, &start1, offset1, libNo);
-						if ((++i) % 100000000 == 0)
+						if ((++i) % 1000000 == 0)
 							printf ("--- %lldth reads\n", i);
 /*						if (lenBuffer[read_c] < overlaplen + 1)
 							continue;*/
@@ -1066,7 +1066,7 @@ void prlRead2edge (char *libfile, char *outfile)
 							start1=0;
 							flag1=AIORead (&aio1, &offset1, readBuffer1, cach1, &rt1, lib_array[libNo].curr_type);
 						}
-						if (read_c == maxReadNum){
+						if (read_c == maxReadNum) {
 							indexArray[read_c] = kmer_c;
 
 							time (&read_end);
@@ -1109,7 +1109,7 @@ void prlRead2edge (char *libfile, char *outfile)
 					{
 						turn = 1;
 						readseqInLib (seqBuffer[read_c], next_name, &(lenBuffer[read_c]), readBuffer2, &start2, offset2, libNo);
-						if ((++i) % 100000000 == 0)
+						if ((++i) % 1000000 == 0)
 							printf ("--- %lldth reads\n", i);
 /*						if (lenBuffer[read_c] < overlaplen + 1)
 							continue;*/
@@ -1191,54 +1191,56 @@ void prlRead2edge (char *libfile, char *outfile)
 				while (start < offset)
 				{
 					readseqInLib (seqBuffer[read_c], next_name, &(lenBuffer[read_c]), readBuffer1, &start, offset, libNo);
-					if ((++i) % 100000000 == 0)
-						printf ("--- %lldth reads\n", i);
+					if ((++i) % 1000000 == 0)
+						printf ("--- %lld reads\n", i);
 					if (lenBuffer[read_c] < overlaplen + 1)
 						continue;
 					indexArray[read_c] = kmer_c;
 					kmer_c += lenBuffer[read_c] - overlaplen + 1;
 					read_c++;
-				}
-				if (read_c > maxReadNum - 1024)
-				{
-					indexArray[read_c] = kmer_c;
 
-					time (&read_end);
-					t0 += read_end - read_start;
-					time (&time_bef);
-					sendWorkSignal (2, thrdSignal);
-					time (&time_aft);
-					t1 += time_aft - time_bef;
-					time (&time_bef);
-					sendWorkSignal (1, thrdSignal);
-					time (&time_aft);
-					t2 += time_aft - time_bef;
-					time (&time_bef);
-					sendWorkSignal (3, thrdSignal);
-					time (&time_aft);
-					t3 += time_aft - time_bef;
-					time (&time_bef);
-					sendWorkSignal (4, thrdSignal);
-					time (&time_aft);
-					t4 += time_aft - time_bef;
-					time (&time_bef);
-					sendWorkSignal (6, thrdSignal);
-					time (&time_aft);
-					t5 += time_aft - time_bef;
-					time (&time_bef);
+					if (read_c > maxReadNum - 1024)
+					{
+						indexArray[read_c] = kmer_c;
 
-					//recordPreArc();
-					if (repsTie)
-						recordPathBin (outfp);
-					time (&time_aft);
-					t6 += time_aft - time_bef;
-					//output_path(read_c,edge_no,flags,outfp);
-					kmer_c = 0;
-					read_c = 0;
-					time (&read_start);
+						time (&read_end);
+						t0 += read_end - read_start;
+						time (&time_bef);
+						sendWorkSignal (2, thrdSignal);
+						time (&time_aft);
+						t1 += time_aft - time_bef;
+						time (&time_bef);
+						sendWorkSignal (1, thrdSignal);
+						time (&time_aft);
+						t2 += time_aft - time_bef;
+						time (&time_bef);
+						sendWorkSignal (3, thrdSignal);
+						time (&time_aft);
+						t3 += time_aft - time_bef;
+						time (&time_bef);
+						sendWorkSignal (4, thrdSignal);
+						time (&time_aft);
+						t4 += time_aft - time_bef;
+						time (&time_bef);
+						sendWorkSignal (6, thrdSignal);
+						time (&time_aft);
+						t5 += time_aft - time_bef;
+						time (&time_bef);
+
+						//recordPreArc();
+						if (repsTie)
+							recordPathBin (outfp);
+						time (&time_aft);
+						t6 += time_aft - time_bef;
+						//output_path(read_c,edge_no,flags,outfp);
+						kmer_c = 0;
+						read_c = 0;
+						time (&read_start);
+					}
 				}
 				if (flag1 == 2)
 					break;
+
 			}
 		}
 	}

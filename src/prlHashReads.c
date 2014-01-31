@@ -143,7 +143,7 @@ static void creatThrds (pthread_t * threads, PARAMETER * paras)
 		}
 	}
 
-	printf ("%d thread created\n", thrd_num);
+	printf ("%d thread created in prlHashReads\n", thrd_num);
 }
 
 static void thread_wait (pthread_t * threads)
@@ -373,6 +373,7 @@ boolean prlRead2HashTable (char *libfile, char *outfile)
 	maxReadNum = buffer_size / (maxReadLen - overlaplen + 1);
 	//printf("buffer size %d, max read len %d, max read num %d\n",buffer_size,maxReadLen,maxReadNum);
 
+
 	int maxAIOSize = 32768;
 	aioBuffer1 = (char *) ckalloc ((maxAIOSize) * sizeof (char));
 	aioBuffer2 = (char *) ckalloc ((maxAIOSize) * sizeof (char));
@@ -386,6 +387,7 @@ boolean prlRead2HashTable (char *libfile, char *outfile)
 	seqBuffer = (char **) ckalloc (maxReadNum * sizeof (char *));
 	lenBuffer = (int *) ckalloc (maxReadNum * sizeof (int));
 	indexArray = (int *) ckalloc (maxReadNum * sizeof (int));
+
 
 	for (i = 0; i < maxReadNum; i++)
 	{
@@ -429,9 +431,11 @@ boolean prlRead2HashTable (char *libfile, char *outfile)
 
 	while (openNextFile (&libNo, pairs, asm_ctg))
 	{
+
 		if (lib_array[libNo].curr_type == 4)
 		{
-			int type = 0;	//deside the PE reads is good or bad
+
+			int type = 0;	//decide if the PE reads is good or bad
 
 			while ((flag = read1seqInLibBam (seqBuffer[read_c], next_name, &(lenBuffer[read_c]), &libNo, pairs, 1, &type)) != 0)
 			{
@@ -447,7 +451,7 @@ boolean prlRead2HashTable (char *libfile, char *outfile)
 					continue;
 				}
 
-				if ((++i) % 100000000 == 0)
+				if ((++i) % 1000000 == 0)
 					printf ("--- %lldth reads\n", i);
 				if (lenBuffer[read_c] < 0)
 					printf ("read len %d\n", lenBuffer[read_c]);
@@ -470,6 +474,7 @@ boolean prlRead2HashTable (char *libfile, char *outfile)
 		}
 		else if (lib_array[libNo].curr_type == 1 || lib_array[libNo].curr_type == 2)
 		{
+
 			initAIO (&aio1, aioBuffer1, fileno (lib_array[libNo].fp1), maxAIOSize);
 			initAIO (&aio2, aioBuffer2, fileno (lib_array[libNo].fp2), maxAIOSize);
 			int offset1, offset2, flag1, flag2, rt1, rt2;
@@ -491,7 +496,7 @@ boolean prlRead2HashTable (char *libfile, char *outfile)
 					{
 						turn = 2;
 						readseqInLib (seqBuffer[read_c], next_name, &(lenBuffer[read_c]), readBuffer1, &start1, offset1, libNo);
-						if ((++i) % 100000000 == 0)
+						if ((++i) % 1000000 == 0)
 							printf ("--- %lldth reads\n", i);
 						if (lenBuffer[read_c] < 0)
 							printf ("read len %d\n", lenBuffer[read_c]);
@@ -527,7 +532,7 @@ boolean prlRead2HashTable (char *libfile, char *outfile)
 					{
 						turn = 1;
 						readseqInLib (seqBuffer[read_c], next_name, &(lenBuffer[read_c]), readBuffer2, &start2, offset2, libNo);
-						if ((++i) % 100000000 == 0)
+						if ((++i) % 1000000 == 0)
 							printf ("--- %lldth reads\n", i);
 						if (lenBuffer[read_c] < 0)
 							printf ("read len %d\n", lenBuffer[read_c]);
@@ -565,9 +570,11 @@ boolean prlRead2HashTable (char *libfile, char *outfile)
 		}
 		else
 		{
+
 			initAIO (&aio1, aioBuffer1, fileno (lib_array[libNo].fp1), maxAIOSize);
 			int offset, flag1, rt;
 
+			i = 0;
 			offset = 0;
 			rt = aio_read (&aio1);
 			while ((flag1 = AIORead (&aio1, &offset, readBuffer1, cach1, &rt, lib_array[libNo].curr_type)))
@@ -577,22 +584,27 @@ boolean prlRead2HashTable (char *libfile, char *outfile)
 				while (start < offset)
 				{
 					readseqInLib (seqBuffer[read_c], next_name, &(lenBuffer[read_c]), readBuffer1, &start, offset, libNo);
-					if ((++i) % 100000000 == 0)
-						printf ("--- %lldth reads\n", i);
+					if ((++i) % 1000000 == 0)
+						printf ("--- %lld reads\n", i);
+//					i++;
 					if (lenBuffer[read_c] < 0)
 						printf ("read len %d\n", lenBuffer[read_c]);
 					if (lenBuffer[read_c] < overlaplen + 1)
 						continue;
+//					printf ("read_c %d\n", read_c);
 					indexArray[read_c] = kmer_c;	
 					kmer_c += lenBuffer[read_c] - overlaplen + 1;
+//					printf ("kmer_c %d\n", kmer_c);
 					read_c++;
-				}
-				if (read_c > maxReadNum - 1024)
-				{
-					kmerCounter[0] += kmer_c;
-					sendWorkSignal (2, thrdSignal);
-					sendWorkSignal (1, thrdSignal);
-					kmer_c = read_c = 0;
+
+					if (read_c > maxReadNum - 1024)
+					{
+//						printf ("read_c > maxReadNum - 1024\n");
+						kmerCounter[0] += kmer_c;
+						sendWorkSignal (2, thrdSignal);
+						sendWorkSignal (1, thrdSignal);
+						kmer_c = read_c = 0;
+					}
 				}
 				if (flag1 == 2)
 					break;

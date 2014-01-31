@@ -1115,7 +1115,7 @@ static void creatThrds (pthread_t * threads, PARAMETER * paras)
 		}
 	}
 
-	printf ("%d thread created\n", thrd_num);
+	printf ("%d thread created for cutTipPreGraph\n", thrd_num);
 }
 
 static void thread_mark (KmerSet * set, unsigned char thrdID)

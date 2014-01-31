@@ -1131,7 +1131,7 @@ static void creatThrds (pthread_t * threads, PARAMETER * paras)
 		}
 	}
 
-	printf ("%d thread created\n...\n", thrd_num);
+	printf ("%d thread created in prlReadFillGap\n...\n", thrd_num);
 }
 
 static void sendWorkSignal (unsigned char SIG, unsigned char *thrdSignals)
