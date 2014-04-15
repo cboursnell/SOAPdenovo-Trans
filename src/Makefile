@@ -82,5 +82,5 @@ clean:
 		@printf "$(PROG) cleaning done.\n";
 
 install:
-		@cp $(PROG) ../../bin/
-		@printf "$(PROG) installed at ../../bin/$(PROG)\n"
+		@cp $(PROG) ../bin/
+		@printf "$(PROG) installed at ../bin/$(PROG)\n"
