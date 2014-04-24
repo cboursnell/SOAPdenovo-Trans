@@ -64,7 +64,9 @@ int call_scaffold (int argc, char **argv)
 	}
 
 	prlReadsCloseGap (graphfile);
+
 	//  locateReadOnScaf(graphfile);
+
 	ScafStat (100, graphfile);
 	if(read_trace)
 	{

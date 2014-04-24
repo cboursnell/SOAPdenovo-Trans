@@ -1480,7 +1480,6 @@ void prlReadsCloseGap (char *graphfile)
 	{
 		freeDarray (readSeqInGap);
 	}
-
 	fclose (fp);
 	fclose (fo);
 	fclose (fo2);
