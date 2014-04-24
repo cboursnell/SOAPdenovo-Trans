@@ -17,6 +17,7 @@ RUNNING
 
 First you will need a config file. Here is an example:
 
+```
 max_rd_len=20000
 [LIB]
 avg_ins=250
@@ -25,6 +26,7 @@ asm_flags=3
 q1=left.fastq
 q2=right.fastq
 q=single.fastq
+```
 
 To run SOAPdenovo-Trans
 
