@@ -2429,10 +2429,12 @@ void ScafStat ( int len_cut, char * graphfile )
 	sprintf ( line, "%s.contig", graphfile );
 	fp2 = ckopen ( line, "r" );
 
+    // Seek to the end of the file
 	fseek(fp2, 0L, SEEK_END);
+	// to find the size
 	sz = ftell(fp2);
-	//You can then seek back to the beginning:
-	fseek(fp, 0L, SEEK_SET);
+	// You can then seek back to the beginning:
+	fseek(fp2, 0L, SEEK_SET);
 	if (sz > 0)
 	{
 		sprintf ( line, "%s.scafStatistics", graphfile );
