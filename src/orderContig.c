@@ -2499,7 +2499,6 @@ void ScafStat ( int len_cut, char * graphfile )
 		Non_ACGTN[Scaffold_Number] = 0;    
 		Size_Seq[Scaffold_Number] = 0;	  
 		Singleton_Seq[Scaffold_Number] = 0;
-		
 		Nucleotide = fgetc(fp);
 		while (Nucleotide != EOF)	 
 		{
@@ -2604,7 +2603,6 @@ void ScafStat ( int len_cut, char * graphfile )
 		
 			Nucleotide = fgetc(fp);   
 		}	 
-		
 		if (Size_Seq[Scaffold_Number-1] < cut_off_len)
 		{
 			A_num_all = A_num_all - A_num[Scaffold_Number-1];
@@ -2672,8 +2670,7 @@ void ScafStat ( int len_cut, char * graphfile )
 			if (Size_Seq[k] > 1000000)
 			{ n1m++;
 			}
-		}	
-		
+		}
 		fprintf(fo,"scaffolds>100 \t%ld\t%.2f%\n",n100 ,100*(1.0*n100/Scaffold_Number));  
 		fprintf(fo,"scaffolds>500 \t%ld\t%.2f%\n",n500 ,100*(1.0*n500/Scaffold_Number));
 		fprintf(fo,"scaffolds>1K  \t%ld\t%.2f%\n",n1k	,100*(1.0*n1k/Scaffold_Number));  
@@ -2698,7 +2695,6 @@ void ScafStat ( int len_cut, char * graphfile )
 		{
 			flag[k]=0;
 		}
-		
 		for(k=Scaffold_Number-1; k>=0; k--)
 		{
 			Sum = Sum + Size_Seq[k];
@@ -2706,27 +2702,26 @@ void ScafStat ( int len_cut, char * graphfile )
 			if ((Sum >= Size_includeN*0.1) && (Sum < Size_includeN*0.2) && (flag[1] == 0))
 				{fprintf(fo,"N10\t%ld\t%ld\n",Size_Seq[k],Scaffold_Number-k);   flag[1] = 1;}    
 			else if ((Sum >= Size_includeN*0.2) && (Sum < Size_includeN*0.3) &&	(flag[2] == 0))
-			  {fprintf(fo,"N20\t%ld\t%ld\n",Size_Seq[k],Scaffold_Number-k);   flag[2] = 1;} 
+				{fprintf(fo,"N20\t%ld\t%ld\n",Size_Seq[k],Scaffold_Number-k);   flag[2] = 1;} 
 			else if ((Sum >= Size_includeN*0.3) && (Sum < Size_includeN*0.4) &&	(flag[3] == 0))
-			  {fprintf(fo,"N30\t%ld\t%ld\n",Size_Seq[k],Scaffold_Number-k);   flag[3] = 1;} 
+				{fprintf(fo,"N30\t%ld\t%ld\n",Size_Seq[k],Scaffold_Number-k);   flag[3] = 1;} 
 			else if ((Sum >= Size_includeN*0.4) && (Sum < Size_includeN*0.5) &&	(flag[4] == 0))
-			  {fprintf(fo,"N40\t%ld\t%ld\n",Size_Seq[k],Scaffold_Number-k);   flag[4] = 1;} 
+				{fprintf(fo,"N40\t%ld\t%ld\n",Size_Seq[k],Scaffold_Number-k);   flag[4] = 1;} 
 			else if ((Sum >= Size_includeN*0.5) && (Sum < Size_includeN*0.6) &&	(flag[5] == 0))
-			  {fprintf(fo,"N50\t%ld\t%ld\n",Size_Seq[k],Scaffold_Number-k);   flag[5] = 1; N50 = Size_Seq[k]; } 
+				{fprintf(fo,"N50\t%ld\t%ld\n",Size_Seq[k],Scaffold_Number-k);   flag[5] = 1; N50 = Size_Seq[k]; } 
 			else if ((Sum >= Size_includeN*0.6) && (Sum < Size_includeN*0.7) &&	(flag[6] == 0))
-			  {fprintf(fo,"N60\t%ld\t%ld\n",Size_Seq[k],Scaffold_Number-k);   flag[6] = 1;} 
+				{fprintf(fo,"N60\t%ld\t%ld\n",Size_Seq[k],Scaffold_Number-k);   flag[6] = 1;} 
 			else if ((Sum >= Size_includeN*0.7) && (Sum < Size_includeN*0.8) &&	(flag[7] == 0))
-			  {fprintf(fo,"N70\t%ld\t%ld\n",Size_Seq[k],Scaffold_Number-k);   flag[7] = 1;} 
+				{fprintf(fo,"N70\t%ld\t%ld\n",Size_Seq[k],Scaffold_Number-k);   flag[7] = 1;} 
 			else if ((Sum >= Size_includeN*0.8) && (Sum < Size_includeN*0.9) &&	(flag[8] == 0))
-			  {fprintf(fo,"N80\t%ld\t%ld\n",Size_Seq[k],Scaffold_Number-k);   flag[8] = 1;} 															 
+				{fprintf(fo,"N80\t%ld\t%ld\n",Size_Seq[k],Scaffold_Number-k);   flag[8] = 1;} 															 
 			else if ((Sum >= Size_includeN*0.9) && (flag[9] == 0))
-			  {fprintf(fo,"N90\t%ld\t%ld\n",Size_Seq[k],Scaffold_Number-k);   flag[9] = 1;}
+				{fprintf(fo,"N90\t%ld\t%ld\n",Size_Seq[k],Scaffold_Number-k);   flag[9] = 1;}
 
 			if ((Sum >= known_genome_size*0.5)  && (flag_known == 0))
 				{ N50_known = Size_Seq[k];  Num_N50_known = Scaffold_Number-k;  flag_known = 1;}	   
 
 		}
-		
 		if(flag[5] == 0) 
 		{	Sum = 0;
 			for(k=Scaffold_Number-1; k>=0; k--)
@@ -2753,7 +2748,6 @@ void ScafStat ( int len_cut, char * graphfile )
 		fprintf(fo,"N50_scaffold-NG50_scaffold_length_difference\tNaN\n");  	
 		}
 
-		
 		fprintf(fo,"\n"); 
 
 		free(A_num);
@@ -2811,7 +2805,7 @@ void ScafStat ( int len_cut, char * graphfile )
 		N50_known = 0;
 		Num_N50_known = 0;
 		flag_known = 0;
-		 
+
 		cut_off_len = len_cut;
 		A_num[Scaffold_Number] = 0;  
 		C_num[Scaffold_Number] = 0;  
@@ -2822,14 +2816,12 @@ void ScafStat ( int len_cut, char * graphfile )
 		Size_Seq[Scaffold_Number] = 0;	  
 		Singleton_Seq[Scaffold_Number] = 0;
 		
-		
 		Nucleotide = fgetc(fp2);
 		
 		while (Nucleotide != EOF)	 
 		{
-		  if(Nucleotide == '>')
+			if(Nucleotide == '>')
 			{
-				  
 				if ((Scaffold_Number > 0) && (Size_Seq[Scaffold_Number-1] < cut_off_len))
 				{
 					A_num_all = A_num_all - A_num[Scaffold_Number-1];
@@ -2846,109 +2838,108 @@ void ScafStat ( int len_cut, char * graphfile )
 				}
 				else
 				{ 			  
-					Size_Seq = (long *)realloc(Size_Seq, (Scaffold_Number+2)*sizeof(long)); 
-					A_num    = (long *)realloc(A_num,    (Scaffold_Number+2)*sizeof(long));  
-					C_num    = (long *)realloc(C_num,    (Scaffold_Number+2)*sizeof(long));  
-					G_num    = (long *)realloc(G_num,    (Scaffold_Number+2)*sizeof(long));  
-					T_num    = (long *)realloc(T_num,    (Scaffold_Number+2)*sizeof(long));  
-					N_num    = (long *)realloc(N_num,    (Scaffold_Number+2)*sizeof(long));	
-					Non_ACGTN= (long *)realloc(Non_ACGTN,(Scaffold_Number+2)*sizeof(long));					  
+					Size_Seq = (long *)realloc(Size_Seq, (Scaffold_Number+2)*sizeof(long));
+					A_num    = (long *)realloc(A_num,    (Scaffold_Number+2)*sizeof(long));
+					C_num    = (long *)realloc(C_num,    (Scaffold_Number+2)*sizeof(long));
+					G_num    = (long *)realloc(G_num,    (Scaffold_Number+2)*sizeof(long));
+					T_num    = (long *)realloc(T_num,    (Scaffold_Number+2)*sizeof(long));
+					N_num    = (long *)realloc(N_num,    (Scaffold_Number+2)*sizeof(long));
+					Non_ACGTN= (long *)realloc(Non_ACGTN,(Scaffold_Number+2)*sizeof(long));
 					Singleton_Seq = (long *)realloc(Singleton_Seq, (Scaffold_Number+2)*sizeof(long));
-			  }
-			  
+				}
+
 				Scaffold_Number++;
 		
 				A_num[Scaffold_Number-1] = 0;
 				C_num[Scaffold_Number-1] = 0;
 				G_num[Scaffold_Number-1] = 0;
-				T_num[Scaffold_Number-1] = 0; 											  
+				T_num[Scaffold_Number-1] = 0;
 				N_num[Scaffold_Number-1] = 0;
-				Non_ACGTN[Scaffold_Number-1] = 0; 		  
-				Size_Seq[Scaffold_Number-1] = 0;						  
-			  Singleton_Seq[Scaffold_Number-1] = 0;
-			  
-					  
-			  Nucleotide = fgetc(fp2);	  
-			  if(Nucleotide == 'C')
+				Non_ACGTN[Scaffold_Number-1] = 0;
+				Size_Seq[Scaffold_Number-1] = 0;
+				Singleton_Seq[Scaffold_Number-1] = 0;
+
+
+				Nucleotide = fgetc(fp2);	  
+				if(Nucleotide == 'C')
 				{
 					Singleton_Number++;
-					Singleton_Seq[Scaffold_Number-1] ++;										  
+					Singleton_Seq[Scaffold_Number-1] ++;
 				}
-					  
-				  fgets(buf,4000,fp2);    
+
+				fgets(buf,4000,fp2);
 			}
-		  else if((Nucleotide == 'N')||(Nucleotide == 'n'))
+			else if((Nucleotide == 'N')||(Nucleotide == 'n'))
 			{
-			  N_num[Scaffold_Number-1] ++;			  
+				N_num[Scaffold_Number-1] ++;			  
 				N_num_all++;	
 				  
-			  Size_Seq[Scaffold_Number-1] ++;
-				Size_includeN++;										  
+				Size_Seq[Scaffold_Number-1] ++;
+				Size_includeN++;
 			}
-		  else if((Nucleotide == 'A')||(Nucleotide == 'a'))
+		 	else if((Nucleotide == 'A')||(Nucleotide == 'a'))
 			{
-			  A_num[Scaffold_Number-1] ++;			  
-				A_num_all++;	
-							  
-			  Size_Seq[Scaffold_Number-1] ++;
-				Size_includeN++;										  
+				A_num[Scaffold_Number-1] ++;
+				A_num_all++;
+
+				Size_Seq[Scaffold_Number-1] ++;
+				Size_includeN++;
 			}
-		  else if((Nucleotide == 'C')||(Nucleotide == 'c'))
+			else if((Nucleotide == 'C')||(Nucleotide == 'c'))
 			{
-			  C_num[Scaffold_Number-1] ++;			  
-				C_num_all++;	
-							  
-			  Size_Seq[Scaffold_Number-1] ++;
-				Size_includeN++;										  
-			} 	  
-		  else if((Nucleotide == 'G')||(Nucleotide == 'g'))
-			{
-			  G_num[Scaffold_Number-1] ++;			  
-				G_num_all++;	
-							  
-			  Size_Seq[Scaffold_Number-1] ++;
-				Size_includeN++;										  
+				C_num[Scaffold_Number-1] ++;
+				C_num_all++;
+
+				Size_Seq[Scaffold_Number-1] ++;
+				Size_includeN++;
 			}
-		  else if((Nucleotide == 'T')||(Nucleotide == 't'))
+			else if((Nucleotide == 'G')||(Nucleotide == 'g'))
 			{
-			  T_num[Scaffold_Number-1] ++;			  
-				T_num_all++;	
-							  
-			  Size_Seq[Scaffold_Number-1] ++;
-				Size_includeN++;										  
+				G_num[Scaffold_Number-1] ++;
+				G_num_all++;
+
+				Size_Seq[Scaffold_Number-1] ++;
+				Size_includeN++;
 			}
-		  else 
+			else if((Nucleotide == 'T')||(Nucleotide == 't'))
+			{
+				T_num[Scaffold_Number-1] ++;
+				T_num_all++;
+
+				Size_Seq[Scaffold_Number-1] ++;
+				Size_includeN++;
+			}
+			else
 			{
 				if((Nucleotide != '\n')&&(Nucleotide != '\r'))
 				{
-				  Non_ACGTN[Scaffold_Number-1] ++;			  
-					Non_ACGTN_all++;	
-				  
-				  Size_Seq[Scaffold_Number-1] ++;
-					Size_includeN++;	
+					Non_ACGTN[Scaffold_Number-1] ++;
+					Non_ACGTN_all++;
+
+					Size_Seq[Scaffold_Number-1] ++;
+					Size_includeN++;
 				}
 			}
-								  
-			Nucleotide = fgetc(fp2);   	  
-		}	 
-		
+
+			Nucleotide = fgetc(fp2);
+		}
 		if (Size_Seq[Scaffold_Number-1] < cut_off_len)
 		{
-			  A_num_all = A_num_all - A_num[Scaffold_Number-1];
-			  C_num_all = C_num_all - C_num[Scaffold_Number-1];
-			  G_num_all = G_num_all - G_num[Scaffold_Number-1];
-			  T_num_all = T_num_all - T_num[Scaffold_Number-1]; 					  
-			  N_num_all = N_num_all - N_num[Scaffold_Number-1];
-			  Non_ACGTN_all = Non_ACGTN_all - Non_ACGTN[Scaffold_Number-1]; 	  
-			  Size_includeN = Size_includeN - Size_Seq[Scaffold_Number-1];
-			  Singleton_Number = Singleton_Number - Singleton_Seq[Scaffold_Number-1];		  
+			A_num_all = A_num_all - A_num[Scaffold_Number-1];
+			C_num_all = C_num_all - C_num[Scaffold_Number-1];
+			G_num_all = G_num_all - G_num[Scaffold_Number-1];
+			T_num_all = T_num_all - T_num[Scaffold_Number-1]; 					  
+			N_num_all = N_num_all - N_num[Scaffold_Number-1];
+			Non_ACGTN_all = Non_ACGTN_all - Non_ACGTN[Scaffold_Number-1]; 	  
+			Size_includeN = Size_includeN - Size_Seq[Scaffold_Number-1];
+			Singleton_Number = Singleton_Number - Singleton_Seq[Scaffold_Number-1];		  
 			  
-			  Scaffold_Number = Scaffold_Number -1;
+			Scaffold_Number = Scaffold_Number -1;
 		}
-		
-		qsort(Size_Seq,Scaffold_Number,sizeof(Size_Seq[0]),cmp_int);
-		 
-		
+
+		qsort(Size_Seq, Scaffold_Number, sizeof(Size_Seq[0]), cmp_int); // this line is causing a seg fault now when it didn't before
+
+
 		fprintf(fo,"Size_includeN\t%lld\n",Size_includeN);
 		fprintf(fo,"Size_withoutN\t%lld\n",Size_includeN - N_num_all);		   
 		fprintf(fo,"Contig_Num\t%ld\n",Scaffold_Number);	
@@ -2958,7 +2949,6 @@ void ScafStat ( int len_cut, char * graphfile )
 		fprintf(fo,"Shortest_Seq\t%ld\n",Size_Seq[0]);	  
 		
 		fprintf(fo,"\n"); 
-		
 		for(k=0; k<Scaffold_Number; k++)
 		{
 			if (Size_Seq[k] > 100)
@@ -2967,76 +2957,81 @@ void ScafStat ( int len_cut, char * graphfile )
 		
 			if (Size_Seq[k] > 500)
 			{ n500++;
-			} 
-			  
+			}
+
 			if (Size_Seq[k] > 1000)
 			{ n1k++;
-			}   
-			  
+			}
+
 			if (Size_Seq[k] > 10000)
 			{ n10k++;
-			}   
-			  
+			}
+
 			if (Size_Seq[k] > 100000)
 			{ n100k++;
-			}   
-			  
+			}
+
 			if (Size_Seq[k] > 1000000)
 			{ n1m++;
-		 	} 		  
+		 	}
 		}	
 		
-		fprintf(fo,"Contig>100 \t%ld\t%.2f%\n",n100 ,100*(1.0*n100/Scaffold_Number));  
+		fprintf(fo,"Contig>100 \t%ld\t%.2f%\n",n100 ,100*(1.0*n100/Scaffold_Number));
 		fprintf(fo,"Contig>500 \t%ld\t%.2f%\n",n500 ,100*(1.0*n500/Scaffold_Number));
-		fprintf(fo,"Contig>1K  \t%ld\t%.2f%\n",n1k	,100*(1.0*n1k/Scaffold_Number));  
-		fprintf(fo,"Contig>10K \t%ld\t%.2f%\n",n10k ,100*(1.0*n10k/Scaffold_Number));  
-		fprintf(fo,"Contig>100K\t%ld\t%.2f%\n",n100k,100*(1.0*n100k/Scaffold_Number));	
-		fprintf(fo,"Contig>1M  \t%ld\t%.2f%\n",n1m	,100*(1.0*n1m/Scaffold_Number));			  
+		fprintf(fo,"Contig>1K  \t%ld\t%.2f%\n",n1k	,100*(1.0*n1k/Scaffold_Number));
+		fprintf(fo,"Contig>10K \t%ld\t%.2f%\n",n10k ,100*(1.0*n10k/Scaffold_Number));
+		fprintf(fo,"Contig>100K\t%ld\t%.2f%\n",n100k,100*(1.0*n100k/Scaffold_Number));
+		fprintf(fo,"Contig>1M  \t%ld\t%.2f%\n",n1m	,100*(1.0*n1m/Scaffold_Number));
 		
 		fprintf(fo,"\n"); 
 		
 		fprintf(fo,"Nucleotide_A\t%lld\t%.2f%\n",A_num_all,100*(1.0*A_num_all/Size_includeN));
 		fprintf(fo,"Nucleotide_C\t%lld\t%.2f%\n",C_num_all,100*(1.0*C_num_all/Size_includeN));
 		fprintf(fo,"Nucleotide_G\t%lld\t%.2f%\n",G_num_all,100*(1.0*G_num_all/Size_includeN));
-		fprintf(fo,"Nucleotide_T\t%lld\t%.2f%\n",T_num_all,100*(1.0*T_num_all/Size_includeN)); 	
-		fprintf(fo,"GapContent_N\t%lld\t%.2f%\n",N_num_all,100*(1.0*N_num_all/Size_includeN)); 	   
-		fprintf(fo,"Non_ACGTN\t%lld\t%.2f%\n",Non_ACGTN_all,100*(1.0*Non_ACGTN_all/Size_includeN)); 
+		fprintf(fo,"Nucleotide_T\t%lld\t%.2f%\n",T_num_all,100*(1.0*T_num_all/Size_includeN));
+		fprintf(fo,"GapContent_N\t%lld\t%.2f%\n",N_num_all,100*(1.0*N_num_all/Size_includeN));
+		fprintf(fo,"Non_ACGTN\t%lld\t%.2f%\n",Non_ACGTN_all,100*(1.0*Non_ACGTN_all/Size_includeN));
 		
-		fprintf(fo,"GC_Content\t%.2f%\t\t(G+C)/(A+C+G+T)\n",100*(1.0*(G_num_all+C_num_all)/(A_num_all+C_num_all+G_num_all+T_num_all)));   
+		fprintf(fo,"GC_Content\t%.2f%\t\t(G+C)/(A+C+G+T)\n",100*(1.0*(G_num_all+C_num_all)/(A_num_all+C_num_all+G_num_all+T_num_all)));
 		
-		fprintf(fo,"\n"); 
+		fprintf(fo,"\n");
 		
-		for (k=0; k<10; k++)
-		  flag[k]=0;
+		for (k=0; k<10; k++) {
+			flag[k]=0;
+		}
+		for(k=Scaffold_Number-1; k>=0; k--) {
+			Sum = Sum + Size_Seq[k];
 		
-		for(k=Scaffold_Number-1; k>=0; k--)
-		 {
-		   Sum = Sum + Size_Seq[k];
-		
-		   if ((Sum >= Size_includeN*0.1) && (Sum < Size_includeN*0.2) && (flag[1] == 0))
-			  {fprintf(fo,"N10\t%ld\t%ld\n",Size_Seq[k],Scaffold_Number-k);   flag[1] = 1;}    
-		   else if ((Sum >= Size_includeN*0.2) && (Sum < Size_includeN*0.3) &&	(flag[2] == 0))
-			  {fprintf(fo,"N20\t%ld\t%ld\n",Size_Seq[k],Scaffold_Number-k);   flag[2] = 1;} 
-		   else if ((Sum >= Size_includeN*0.3) && (Sum < Size_includeN*0.4) &&	(flag[3] == 0))
-			  {fprintf(fo,"N30\t%ld\t%ld\n",Size_Seq[k],Scaffold_Number-k);   flag[3] = 1;} 
-		   else if ((Sum >= Size_includeN*0.4) && (Sum < Size_includeN*0.5) &&	(flag[4] == 0))
-			  {fprintf(fo,"N40\t%ld\t%ld\n",Size_Seq[k],Scaffold_Number-k);   flag[4] = 1;} 
-		   else if ((Sum >= Size_includeN*0.5) && (Sum < Size_includeN*0.6) &&	(flag[5] == 0))
-			  {fprintf(fo,"N50\t%ld\t%ld\n",Size_Seq[k],Scaffold_Number-k);   flag[5] = 1; N50 = Size_Seq[k]; } 
-		   else if ((Sum >= Size_includeN*0.6) && (Sum < Size_includeN*0.7) &&	(flag[6] == 0))
-			  {fprintf(fo,"N60\t%ld\t%ld\n",Size_Seq[k],Scaffold_Number-k);   flag[6] = 1;} 
-		   else if ((Sum >= Size_includeN*0.7) && (Sum < Size_includeN*0.8) &&	(flag[7] == 0))
-			  {fprintf(fo,"N70\t%ld\t%ld\n",Size_Seq[k],Scaffold_Number-k);   flag[7] = 1;} 
-		   else if ((Sum >= Size_includeN*0.8) && (Sum < Size_includeN*0.9) &&	(flag[8] == 0))
-			  {fprintf(fo,"N80\t%ld\t%ld\n",Size_Seq[k],Scaffold_Number-k);   flag[8] = 1;} 															 
-		   else if ((Sum >= Size_includeN*0.9) && (flag[9] == 0))
-			  {fprintf(fo,"N90\t%ld\t%ld\n",Size_Seq[k],Scaffold_Number-k);   flag[9] = 1;}
+			if ((Sum >= Size_includeN*0.1) && (Sum < Size_includeN*0.2) && (flag[1] == 0))
+				{fprintf(fo,"N10\t%ld\t%ld\n",Size_Seq[k],Scaffold_Number-k);   flag[1] = 1;}    
+			else if ((Sum >= Size_includeN*0.2) && (Sum < Size_includeN*0.3) &&	(flag[2] == 0))
+				{fprintf(fo,"N20\t%ld\t%ld\n",Size_Seq[k],Scaffold_Number-k);   flag[2] = 1;} 
+			else if ((Sum >= Size_includeN*0.3) && (Sum < Size_includeN*0.4) &&	(flag[3] == 0))
+				{fprintf(fo,"N30\t%ld\t%ld\n",Size_Seq[k],Scaffold_Number-k);   flag[3] = 1;} 
+			else if ((Sum >= Size_includeN*0.4) && (Sum < Size_includeN*0.5) &&	(flag[4] == 0))
+				{fprintf(fo,"N40\t%ld\t%ld\n",Size_Seq[k],Scaffold_Number-k);   flag[4] = 1;} 
+			else if ((Sum >= Size_includeN*0.5) && (Sum < Size_includeN*0.6) &&	(flag[5] == 0))
+			{
+				fprintf(fo,"N50\t%ld\t%ld\n",Size_Seq[k],Scaffold_Number-k);   flag[5] = 1;
+				N50 = Size_Seq[k];
+			}
+			else if ((Sum >= Size_includeN*0.6) && (Sum < Size_includeN*0.7) &&	(flag[6] == 0))
+				{fprintf(fo,"N60\t%ld\t%ld\n",Size_Seq[k],Scaffold_Number-k);   flag[6] = 1;} 
+			else if ((Sum >= Size_includeN*0.7) && (Sum < Size_includeN*0.8) &&	(flag[7] == 0))
+				{fprintf(fo,"N70\t%ld\t%ld\n",Size_Seq[k],Scaffold_Number-k);   flag[7] = 1;} 
+			else if ((Sum >= Size_includeN*0.8) && (Sum < Size_includeN*0.9) &&	(flag[8] == 0))
+				{fprintf(fo,"N80\t%ld\t%ld\n",Size_Seq[k],Scaffold_Number-k);   flag[8] = 1;} 															 
+			else if ((Sum >= Size_includeN*0.9) && (flag[9] == 0))
+				{fprintf(fo,"N90\t%ld\t%ld\n",Size_Seq[k],Scaffold_Number-k);   flag[9] = 1;}
 
-		   if ((Sum >= known_genome_size*0.5)  && (flag_known == 0))
-			 	{ N50_known = Size_Seq[k];  Num_N50_known = Scaffold_Number-k;  flag_known = 1;}	 
-		   
-		 }
-		
+			if ((Sum >= known_genome_size*0.5)  && (flag_known == 0))
+			{
+				N50_known = Size_Seq[k];
+				Num_N50_known = Scaffold_Number-k;
+				flag_known = 1;
+			}
+
+		}
 		if(flag[5] == 0) 
 		{	Sum = 0;
 			for(k=Scaffold_Number-1; k>=0; k--)
@@ -3056,17 +3051,13 @@ void ScafStat ( int len_cut, char * graphfile )
 		{
 			fprintf(fo,"NG50\t%ld\t%ld\n",N50_known,Num_N50_known);
 			fprintf(fo,"N50_contig-NG50_contig_length_difference\t%ld\n",abs(N50 - N50_known));  	
-		}
-		else
-		{
+		} else {
 			fprintf(fo,"NG50\tNaN\tNaN\n");
 			fprintf(fo,"N50_contig-NG50_contig_length_difference\tNaN\n");  	
-		}	
+		}
 		
 		fprintf(fo,"\n"); 
 
-
-		
 		free(A_num);
 		free(C_num);
 		free(G_num);
