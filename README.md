@@ -10,7 +10,7 @@ COMPILATION
 
 Type
 
-./make.sh
+`./make.sh`
 
 RUNNING
 =======
@@ -30,7 +30,7 @@ q=single.fastq
 
 To run SOAPdenovo-Trans
 
-./SOAPdenovo-Trans-127mer all -s config -o assembly -p 8
+`./SOAPdenovo-Trans-127mer all -s config -o assembly -p 8`
 
 for running on 8 cpus.
 
